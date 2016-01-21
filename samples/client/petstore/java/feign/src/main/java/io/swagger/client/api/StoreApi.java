@@ -8,7 +8,7 @@ import io.swagger.client.model.Order;
 import java.util.*;
 import feign.*;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-01-11T21:48:33.457Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-01-05T14:39:18.888+08:00")
 public interface StoreApi extends ApiClient.Api {
 
 

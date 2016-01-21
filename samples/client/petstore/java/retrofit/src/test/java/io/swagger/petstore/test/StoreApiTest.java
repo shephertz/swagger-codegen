@@ -1,7 +1,5 @@
 package io.swagger.petstore.test;
 
-import io.swagger.TestUtils;
-
 import io.swagger.client.ApiClient;
 import io.swagger.client.api.*;
 import io.swagger.client.model.*;
@@ -58,7 +56,7 @@ public class StoreApiTest {
 
     private Order createOrder() {
         Order order = new Order();
-        order.setId(new Long(TestUtils.nextId()));
+        order.setId(new Long(System.currentTimeMillis()));
         order.setPetId(new Long(200));
         order.setQuantity(new Integer(13));
         order.setShipDate(new java.util.Date());

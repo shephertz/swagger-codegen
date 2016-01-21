@@ -1,7 +1,5 @@
 package io.swagger.petstore.test;
 
-import io.swagger.TestUtils;
-
 import io.swagger.client.ApiClient;
 import io.swagger.client.api.*;
 import io.swagger.client.model.*;
@@ -34,7 +32,7 @@ public class PetApiTest {
     public void testCreateAndGetPet() throws Exception {
         Pet pet = createRandomPet();
         Response<Void> rp2 = api.addPet(pet).execute();
-
+        
         Response<Pet> rp = api.getPetById(pet.getId()).execute();
         Pet fetched = rp.body();
         assertNotNull(fetched);
@@ -173,7 +171,7 @@ public class PetApiTest {
 
     private Pet createRandomPet() {
         Pet pet = new Pet();
-        pet.setId(TestUtils.nextId());
+        pet.setId(System.currentTimeMillis());
         pet.setName("gorilla");
 
         Category category = new Category();

@@ -78,7 +78,7 @@ namespace IO.Swagger.Model
         /// <summary>
         /// Returns true if Category instances are equal
         /// </summary>
-        /// <param name="other">Instance of Category to be compared</param>
+        /// <param name="obj">Instance of Category to be compared</param>
         /// <returns>Boolean</returns>
         public bool Equals(Category other)
         {
@@ -112,10 +112,10 @@ namespace IO.Swagger.Model
                 // Suitable nullity checks etc, of course :)
                 
                 if (this.Id != null)
-                    hash = hash * 59 + this.Id.GetHashCode();
+                    hash = hash * 57 + this.Id.GetHashCode();
                 
                 if (this.Name != null)
-                    hash = hash * 59 + this.Name.GetHashCode();
+                    hash = hash * 57 + this.Name.GetHashCode();
                 
                 return hash;
             }

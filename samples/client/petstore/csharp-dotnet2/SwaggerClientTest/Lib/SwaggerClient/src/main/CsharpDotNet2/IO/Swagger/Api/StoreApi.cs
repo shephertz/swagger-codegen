@@ -8,16 +8,13 @@ using IO.Swagger.Model;
 namespace IO.Swagger.Api
 {
     
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
     public interface IStoreApi
     {
         
         /// <summary>
         /// Returns pet inventories by status Returns a map of status codes to quantities
         /// </summary>
-        /// <returns>Dictionary&lt;String, int?&gt;</returns>
+        /// <returns>Dictionary<String, int?></returns>
         Dictionary<String, int?> GetInventory ();
         
         /// <summary>
@@ -93,14 +90,14 @@ namespace IO.Swagger.Api
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
-        /// <value>An instance of the ApiClient</value>
+        /// <value>An instance of the ApiClient</param>
         public ApiClient ApiClient {get; set;}
     
         
         /// <summary>
         /// Returns pet inventories by status Returns a map of status codes to quantities
         /// </summary>
-        /// <returns>Dictionary&lt;String, int?&gt;</returns>            
+        /// <returns>Dictionary<String, int?></returns>            
         public Dictionary<String, int?> GetInventory ()
         {
             

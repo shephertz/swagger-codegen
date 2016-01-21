@@ -8,9 +8,6 @@ using IO.Swagger.Model;
 namespace IO.Swagger.Api
 {
     
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
     public interface IPetApi
     {
         
@@ -32,14 +29,14 @@ namespace IO.Swagger.Api
         /// Finds Pets by status Multiple status values can be provided with comma seperated strings
         /// </summary>
         /// <param name="status">Status values that need to be considered for filter</param>
-        /// <returns>List&lt;Pet&gt;</returns>
+        /// <returns>List<Pet></returns>
         List<Pet> FindPetsByStatus (List<string> status);
         
         /// <summary>
         /// Finds Pets by tags Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
         /// </summary>
         /// <param name="tags">Tags to filter by</param>
-        /// <returns>List&lt;Pet&gt;</returns>
+        /// <returns>List<Pet></returns>
         List<Pet> FindPetsByTags (List<string> tags);
         
         /// <summary>
@@ -127,7 +124,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
-        /// <value>An instance of the ApiClient</value>
+        /// <value>An instance of the ApiClient</param>
         public ApiClient ApiClient {get; set;}
     
         
@@ -215,7 +212,7 @@ namespace IO.Swagger.Api
         /// Finds Pets by status Multiple status values can be provided with comma seperated strings
         /// </summary>
         /// <param name="status">Status values that need to be considered for filter</param> 
-        /// <returns>List&lt;Pet&gt;</returns>            
+        /// <returns>List<Pet></returns>            
         public List<Pet> FindPetsByStatus (List<string> status)
         {
             
@@ -255,7 +252,7 @@ namespace IO.Swagger.Api
         /// Finds Pets by tags Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.
         /// </summary>
         /// <param name="tags">Tags to filter by</param> 
-        /// <returns>List&lt;Pet&gt;</returns>            
+        /// <returns>List<Pet></returns>            
         public List<Pet> FindPetsByTags (List<string> tags)
         {
             

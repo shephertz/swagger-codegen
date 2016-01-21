@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-01-11T21:48:33.457Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.JavaClientCodegen", date = "2016-01-05T14:39:18.888+08:00")
 public class Tag   {
   
   private Long id = null;
@@ -53,10 +53,8 @@ public class Tag   {
       return false;
     }
     Tag tag = (Tag) o;
-
-    return true && Objects.equals(id, tag.id) &&
-        Objects.equals(name, tag.name)
-    ;
+    return Objects.equals(id, tag.id) &&
+        Objects.equals(name, tag.name);
   }
 
   @Override

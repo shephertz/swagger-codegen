@@ -11,7 +11,6 @@ import com.google.common.collect.Multimap;
 
 import io.swagger.codegen.*;
 import io.swagger.models.Swagger;
-import io.swagger.models.Info;
 import io.swagger.util.Yaml;
 
 import java.io.File;
@@ -247,6 +246,9 @@ public class NodeJSServerCodegen extends DefaultCodegen implements CodegenConfig
 
     @Override
     public void preprocessSwagger(Swagger swagger) {
+        if ("/".equals(swagger.getBasePath())) {
+            swagger.setBasePath("");
+        }
 
         String host = swagger.getHost();
         String port = "8080";
@@ -257,16 +259,6 @@ public class NodeJSServerCodegen extends DefaultCodegen implements CodegenConfig
             }
         }
         this.additionalProperties.put("serverPort", port);
-        
-        if (swagger.getInfo() != null) {
-            Info info = swagger.getInfo();
-            if (info.getTitle() != null) {
-                // when info.title is defined, use it for projectName
-                // used in package.json
-                projectName = dashize(info.getTitle());
-                this.additionalProperties.put("projectName", projectName);
-            }
-        }
     }
 
         @Override

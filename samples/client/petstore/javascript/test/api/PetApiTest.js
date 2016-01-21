@@ -1,21 +1,25 @@
 if (typeof module === 'object' && module.exports) {
   var expect = require('expect.js');
-  var SwaggerPetstore = require('../../src/index');
+  var requireApiWithMocks = require('../helper.js').requireApiWithMocks;
+  var PetApi = requireApiWithMocks('PetApi');
+  var Pet = require('../../src/model/Pet');
+  var Category = require('../../src/model/Category');
+  var Tag = require('../../src/model/Tag');
 }
 
 var api;
 
 beforeEach(function() {
-  api = new SwaggerPetstore.PetApi();
+  api = new PetApi();
 });
 
 var createRandomPet = function() {
   var id = new Date().getTime();
-  var pet = new SwaggerPetstore.Pet();
+  var pet = new Pet();
   pet.setId(id);
   pet.setName("gorilla" + id);
 
-  var category = new SwaggerPetstore.Category();
+  var category = new Category();
   category.setName("really-happy");
   pet.setCategory(category);
 
@@ -27,17 +31,13 @@ var createRandomPet = function() {
 };
 
 describe('PetApi', function() {
-  it('should create and get pet', function(done) {
+  it('should create and get pet', function (done) {
     var pet = createRandomPet();
-    api.addPet(pet, function(error) {
-      if (error) throw error;
-
-      api.getPetById(pet.id, function(error, fetched, response) {
+    api.addPet(pet).then(function() {
+      api.getPetById(pet.id, function(fetched, textStatus, jqXHR, error) {
         if (error) throw error;
-        expect(response.status).to.be(200);
-        expect(response.ok).to.be(true);
-        expect(response.get('Content-Type')).to.be('application/json');
 
+        expect(textStatus).to.be('success');
         expect(fetched).to.be.ok();
         expect(fetched.id).to.be(pet.id);
         expect(fetched.getCategory()).to.be.ok();
@@ -46,6 +46,8 @@ describe('PetApi', function() {
         api.deletePet(pet.id);
         done();
       });
+    }, function(jqXHR, textStatus, errorThrown) {
+      throw errorThrown || textStatus;
     });
   });
 });

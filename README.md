@@ -23,7 +23,6 @@ Check out [Swagger-Spec](https://github.com/OAI/OpenAPI-Specification) for addit
     - [Docker](#docker)
       - [Build and run](#build-and-run-using-docker)
       - [Build a Node.js server stub](#build-a-nodejs-server-stub)
-      - [Public Docker image](#public-docker-image)
     - [Homebrew](#homebrew)
   - Generators
     - [To generate a sample client library](#to-generate-a-sample-client-library)
@@ -33,7 +32,7 @@ Check out [Swagger-Spec](https://github.com/OAI/OpenAPI-Specification) for addit
     - [Where is Javascript???](#where-is-javascript)
     - [Generating a client from local files](#generating-a-client-from-local-files)
     - [Customizing the generator](#customizing-the-generator)
-    - [Validating your OpenAPI Spec](#validating-your-openapi-spec)
+    - [Validating your OpenAPI Spec](#validating-your-swagger-spec)
     - [Generating dynamic html api documentation](#generating-dynamic-html-api-documentation)
     - [Generating static html api documentation](#generating-static-html-api-documentation)
     - [To build a server stub](#to-build-a-server-stub)
@@ -57,13 +56,13 @@ The OpenAPI Specification has undergone 3 revisions since initial creation in 20
 Swagger Codegen Version    | Release Date | OpenAPI Spec compatibility | Notes
 -------------------------- | ------------ | -------------------------- | -----
 2.1.6-SNAPSHOT             |              | 1.0, 1.1, 1.2, 2.0   | [master](https://github.com/swagger-api/swagger-codegen)
-2.1.5 (**current stable**) | 2015-01-06   | 1.0, 1.1, 1.2, 2.0   | [tag v2.1.5](https://github.com/swagger-api/swagger-codegen/tree/v2.1.5)
+2.1.5 (**current stable**) | 2015-01-06   | 1.0, 1.1, 1.2, 2.0   | [tag v2.1.5](https://github.com/swagger-api/swagger-codegen/tree/v2.1.4)
 2.0.17                     | 2014-08-22   | 1.1, 1.2             | [tag v2.0.17](https://github.com/swagger-api/swagger-codegen/tree/v2.0.17)
 1.0.4                      | 2012-04-12   | 1.0, 1.1             | [tag v1.0.4](https://github.com/swagger-api/swagger-codegen/tree/swagger-codegen_2.9.1-1.1)
 
 
 ### Prerequisites
-If you're looking for the latest stable version, you can grab it directly from maven central (you'll need java 7 runtime at a minimum):
+If you're looking for the latest stable version, you can grab it directly from maven central (you'll need the java 7 runtime):
 
 ```
 wget http://repo1.maven.org/maven2/io/swagger/swagger-codegen-cli/2.1.4/swagger-codegen-cli-2.1.4.jar swagger-codegen-cli.jar
@@ -78,16 +77,16 @@ brew install swagger-codegen
 
 To build from source, you need the following installed and available in your $PATH:
 
-* [Java 7 or 8](http://java.oracle.com)
+* [Java 7](http://java.oracle.com)
 
 * [Apache maven 3.0.3 or greater](http://maven.apache.org/)
 
 #### OS X Users
-Don't forget to install Java 7 or 8. You probably have 1.6.
+Don't forget to install Java 7. You probably have 1.6 or 1.8.
 
 Export JAVA_HOME in order to use the supported Java version:
 ```
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 export PATH=${JAVA_HOME}/bin:$PATH
 ```
 
@@ -117,10 +116,6 @@ cd swagger-codegen
   -l nodejs \
   -o samples/server/petstore/nodejs
  ```
-
-#### Public Docker image
-
-https://hub.docker.com/r/swaggerapi/swagger-generator/
 
 ### Homebrew
 To install, run `brew install swagger-codegen`
@@ -237,15 +232,16 @@ This will write, in the folder `output/myLibrary`, all the files you need to get
 
 You would then compile your library in the `output/myLibrary` folder with `mvn package` and execute the codegen like such:
 
+
 ```
-java -cp output/myLibrary/target/myClientCodegen-swagger-codegen-1.0.0.jar:modules/swagger-codegen-cli/target/swagger-codegen-cli.jar io.swagger.codegen.SwaggerCodegen
+java -cp output/myLibrary/target/myClientCodegen-swagger-codegen-1.0.0.jar:modules/swagger-codegen-cli/target/swagger-codegen-cli.jar io.swagger.codegen.Codegen
 ```
 
 Note the `myClientCodegen` is an option now, and you can use the usual arguments for generating your library:
 
 ```
 java -cp output/myLibrary/target/myClientCodegen-swagger-codegen-1.0.0.jar:modules/swagger-codegen-cli/target/swagger-codegen-cli.jar \
-  io.swagger.codegen.SwaggerCodegen generate -l myClientCodegen\
+  io.swagger.codegen.Codegen generate -l myClientCodegen\
   -i http://petstore.swagger.io/v2/swagger.json \
   -o myClient
 ```
@@ -584,7 +580,7 @@ Please refer to this [page](https://github.com/swagger-api/swagger-codegen/blob/
 License
 -------
 
-Copyright 2016 SmartBear Software
+Copyright 2015 SmartBear Software
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

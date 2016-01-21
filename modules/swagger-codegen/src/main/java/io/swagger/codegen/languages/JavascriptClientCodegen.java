@@ -133,8 +133,6 @@ public class JavascriptClientCodegen extends DefaultCodegen implements CodegenCo
         typeMapping.put("double", "Number");
         typeMapping.put("number", "Number");
         typeMapping.put("DateTime", "Date");
-        // binary not supported in JavaScript client right now, using String as a workaround
-        typeMapping.put("binary", "String");
 
         importMapping.clear();
     }
@@ -207,7 +205,6 @@ public class JavascriptClientCodegen extends DefaultCodegen implements CodegenCo
 
         supportingFiles.add(new SupportingFile("package.mustache", "", "package.json"));
         supportingFiles.add(new SupportingFile("index.mustache", sourceFolder, "index.js"));
-        supportingFiles.add(new SupportingFile("ApiClient.mustache", sourceFolder, "ApiClient.js"));
     }
 
     @Override

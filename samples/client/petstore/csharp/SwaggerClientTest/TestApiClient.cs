@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using IO.Swagger.Client;
-using IO.Swagger.Api;
 
 namespace SwaggerClientTest.TestApiClient
 {
@@ -15,26 +14,6 @@ namespace SwaggerClientTest.TestApiClient
             Configuration.Default.DateTimeFormat = "o";
         }
 
-		/// <summary>
-		/// Test SelectHeaderContentType
-		/// </summary>
-		[Test ()]
-		public void TestSelectHeaderContentType ()
-		{	
-			ApiClient api = new ApiClient ();
-			String[] contentTypes = new String[] { "application/json", "application/xml" };
-			Assert.AreEqual("application/json", api.SelectHeaderContentType (contentTypes));
-
-			contentTypes = new String[] { "application/xml" };
-			Assert.AreEqual("application/xml", api.SelectHeaderContentType (contentTypes));
-
-			contentTypes = new String[] {};
-			Assert.IsNull(api.SelectHeaderContentType (contentTypes));	
-		}
-
-		/// <summary>
-		/// Test ParameterToString
-		/// </summary>
         [Test ()]
 		public void TestParameterToString ()
 		{	
@@ -69,7 +48,7 @@ namespace SwaggerClientTest.TestApiClient
 		{
 			ApiClient api = new ApiClient ();
             // test datetime with a time zone
-            DateTimeOffset dateWithTz = DateTimeOffset.Parse("2008-04-10T13:30:00.0000000-04:00", null, System.Globalization.DateTimeStyles.RoundtripKind);
+            DateTime dateWithTz = DateTime.Parse("2008-04-10T13:30:00.0000000-04:00", null, System.Globalization.DateTimeStyles.RoundtripKind);
             Assert.AreEqual("2008-04-10T13:30:00.0000000-04:00", api.ParameterToString(dateWithTz));
         }
 
@@ -96,50 +75,6 @@ namespace SwaggerClientTest.TestApiClient
             DateTime dateUtc = DateTime.Parse("2009-06-15 20:45:30Z", null, System.Globalization.DateTimeStyles.RoundtripKind);
             Assert.AreEqual("15/06/09 20:45:30", api.ParameterToString(dateUtc));
         }
-
-		[Test ()]
-		public void TestSanitizeFilename ()
-		{
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("../sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("/var/tmp/sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("./sun.gif"));
-			        
-			Assert.AreEqual("sun", ApiClient.SanitizeFilename("sun"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("..\\sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("\\var\\tmp\\sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename("c:\\var\\tmp\\sun.gif"));
-			Assert.AreEqual("sun.gif", ApiClient.SanitizeFilename(".\\sun.gif"));
-
-		}
-
-		[Test ()]
-		public void TestApiClientInstance ()
-		{
-			PetApi p1 = new PetApi ();
-			PetApi p2 = new PetApi ();
-
-			Configuration c1 = new Configuration (); // using default ApiClient
-			PetApi p3 = new PetApi (c1);
-
-			ApiClient a1 = new ApiClient();
-			Configuration c2 = new Configuration (a1); // using "a1" as the ApiClient
-			PetApi p4 = new PetApi (c2);
-
-
-			// ensure both using the same default ApiClient
-			Assert.AreSame(p1.Configuration.ApiClient, p2.Configuration.ApiClient);
-			Assert.AreSame(p1.Configuration.ApiClient, Configuration.Default.ApiClient);
-
-			// ensure both using the same default ApiClient
-			Assert.AreSame(p3.Configuration.ApiClient, c1.ApiClient);
-			Assert.AreSame(p3.Configuration.ApiClient, Configuration.Default.ApiClient);
-
-			// ensure it's not using the default ApiClient
-			Assert.AreSame(p4.Configuration.ApiClient, c2.ApiClient);
-			Assert.AreNotSame(p4.Configuration.ApiClient, Configuration.Default.ApiClient);
-
-		}
     }
 }
 

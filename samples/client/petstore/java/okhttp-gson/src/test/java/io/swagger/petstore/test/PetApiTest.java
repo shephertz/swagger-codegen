@@ -1,7 +1,5 @@
 package io.swagger.petstore.test;
 
-import io.swagger.TestUtils;
-
 import io.swagger.client.*;
 import io.swagger.client.api.*;
 import io.swagger.client.auth.*;
@@ -314,7 +312,7 @@ public class PetApiTest {
 
     private Pet createRandomPet() {
         Pet pet = new Pet();
-        pet.setId(TestUtils.nextId());
+        pet.setId(System.currentTimeMillis());
         pet.setName("gorilla");
 
         Category category = new Category();

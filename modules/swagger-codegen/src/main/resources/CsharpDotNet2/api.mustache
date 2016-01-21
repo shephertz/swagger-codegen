@@ -9,9 +9,6 @@ using {{packageName}}.Client;
 namespace {{packageName}}.Api
 {
     {{#operations}}
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
     public interface I{{classname}}
     {
         {{#operation}}
@@ -19,7 +16,7 @@ namespace {{packageName}}.Api
         /// {{summary}} {{notes}}
         /// </summary>
         {{#allParams}}/// <param name="{{paramName}}">{{description}}</param>
-        {{/allParams}}/// <returns>{{#returnType}}{{returnType}}{{/returnType}}</returns>
+        {{/allParams}}/// <returns>{{#returnType}}{{{returnType}}}{{/returnType}}</returns>
         {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
         {{/operation}}
     }
@@ -74,7 +71,7 @@ namespace {{packageName}}.Api
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
-        /// <value>An instance of the ApiClient</value>
+        /// <value>An instance of the ApiClient</param>
         public ApiClient ApiClient {get; set;}
     
         {{#operation}}
@@ -82,7 +79,7 @@ namespace {{packageName}}.Api
         /// {{summary}} {{notes}}
         /// </summary>
         {{#allParams}}/// <param name="{{paramName}}">{{description}}</param> 
-        {{/allParams}}/// <returns>{{#returnType}}{{returnType}}{{/returnType}}</returns>            
+        {{/allParams}}/// <returns>{{#returnType}}{{{returnType}}}{{/returnType}}</returns>            
         public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}} {{nickname}} ({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}})
         {
             {{#allParams}}{{#required}}

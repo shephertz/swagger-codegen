@@ -110,7 +110,6 @@ public class CodegenParameter {
             output.allowableValues = new HashMap<String, Object>(this.allowableValues);
         }
         output.vendorExtensions = this.vendorExtensions;
-        output.isBinary = this.isBinary;
 
         return output;
     }
