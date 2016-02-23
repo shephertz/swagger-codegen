@@ -1698,19 +1698,41 @@ public class DefaultCodegen {
                 // must be root tmpPath
                 builder.append("root");
             }
+            String version="";
             for (int i = 0; i < parts.length; i++) {
                 String part = parts[i];
                 if (part.length() > 0) {
                     if (builder.toString().length() == 0) {
-                        part = Character.toLowerCase(part.charAt(0)) + part.substring(1);
+                        if(part.startsWith("V") || part.startsWith("v")){
+                            version="_"+part;
+                            part = "";
+                        }else{
+                            part = Character.toLowerCase(part.charAt(0)) + part.substring(1);
+                        }
                     } else {
                         part = initialCaps(part);
                     }
                     builder.append(part);
                 }
             }
-            operationId = builder.toString();
+            operationId = builder+""+version;
             LOGGER.info("generated operationId " + operationId + "\tfor Path: " + httpMethod + " " + path);
+            
+            
+            /*           for (int i = 1; i < parts.length; i++) {
+             String part = parts[i];
+             if (part.length() > 0) {
+             if (builder.toString().length() == 0) {
+             part = Character.toLowerCase(part.charAt(0)) + part.substring(1);
+             } else {
+             part = initialCaps(part);
+             }
+             builder.append(part);
+             }
+             }
+             builder.append("_"+parts[0]);
+             operationId = builder.toString();
+             LOGGER.info("generated operationId " + operationId + "\tfor Path: " + httpMethod + " " + path);*/
         }
         return operationId;
     }
