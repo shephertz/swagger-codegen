@@ -370,7 +370,10 @@ static void (^reachabilityChangeBlock)(int);
     NSArray *primitiveTypes = @[@"NSString", @"NSDate", @"NSNumber"];
 
     if ([primitiveTypes containsObject:class]) {
-        if ([class isEqualToString:@"NSString"]) {
+       if ([data isKindOfClass:[NSData class]] && ![class isEqualToString:@"NSNumber"]) {
+            return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }
+        else if ([class isEqualToString:@"NSString"]) {
             return [NSString stringWithString:data];
         }
         else if ([class isEqualToString:@"NSDate"]) {
