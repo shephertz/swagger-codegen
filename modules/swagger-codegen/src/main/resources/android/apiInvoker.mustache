@@ -319,7 +319,7 @@ public class ApiInvoker {
             post.setEntity((HttpEntity) body);
           } else {
             post.setHeader("Content-Type", contentType);
-            post.setEntity(new StringEntity(serialize(body), "UTF-8"));
+            post.setEntity(new StringEntity(body.toString(), "UTF-8"));
           }
         }
         for(String key : headers.keySet()) {
@@ -334,7 +334,7 @@ public class ApiInvoker {
           put.setEntity(new StringEntity(formParamStr, "UTF-8"));
         } else if (body != null) {
           put.setHeader("Content-Type", contentType);
-          put.setEntity(new StringEntity(serialize(body), "UTF-8"));
+          put.setEntity(new StringEntity(body.toString(), "UTF-8"));
         }
         for(String key : headers.keySet()) {
           put.setHeader(key, headers.get(key));
