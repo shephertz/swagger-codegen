@@ -186,6 +186,7 @@ namespace {{packageName}}.Api
             
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            // remove Configuration.ApiClient.Serialize
             pathParams.Add("format", "json");
             {{#pathParams}}if ({{paramName}} != null) pathParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // path parameter
             {{/pathParams}}
@@ -195,7 +196,7 @@ namespace {{packageName}}.Api
             {{/headerParams}}
             {{#formParams}}if ({{paramName}} != null) {{#isFile}}fileParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToFile("{{baseName}}", {{paramName}}));{{/isFile}}{{^isFile}}formParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // form parameter{{/isFile}}
             {{/formParams}}
-            {{#bodyParam}}postBody = Configuration.ApiClient.Serialize({{paramName}}); // http body (model) parameter
+            {{#bodyParam}}postBody = {{paramName}}; // http body (model) parameter
             {{/bodyParam}}
 
             {{#authMethods}}
