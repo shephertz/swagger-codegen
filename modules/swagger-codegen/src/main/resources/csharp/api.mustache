@@ -173,7 +173,17 @@ namespace {{packageName}}.Api
             String http_header_accept = Configuration.ApiClient.SelectHeaderAccept(http_header_accepts);
             if (http_header_accept != null)
                 headerParams.Add("Accept", Configuration.ApiClient.SelectHeaderAccept(http_header_accepts));
-
+            
+            // Add changes for content type -- 2016-06-16
+            String[] http_header_contentTypes = {
+                  {{#consumes}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
+            };
+             String http_header_contentType = Configuration.ApiClient.SelectHeaderAccept(http_header_contentTypes);
+            if (http_header_contentType != null)
+             headerParams.Add("Content-Type", Configuration.ApiClient.SelectHeaderContentType(http_header_contentTypes));
+            // Changes Ends.
+            
+            
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             pathParams.Add("format", "json");
