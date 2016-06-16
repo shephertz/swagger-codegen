@@ -303,6 +303,18 @@ namespace {{packageName}}.Client
 
             return String.Join(",", accepts);
         }
+        
+        //Add new method for content type -- 2016-06-16
+        public String SelectHeaderContentType(String[] contentType)
+        {
+            if (contentType.Length == 0)
+                return null;
+
+            if (contentType.Contains("application/json", StringComparer.OrdinalIgnoreCase))
+                return "application/json";
+
+            return String.Join(",", contentType);
+        }
  
         /// <summary>
         /// Encode string in base64 format.
