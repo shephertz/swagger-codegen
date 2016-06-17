@@ -11,16 +11,14 @@
   <body>
   <h1>{{{appName}}}</h1>
     <div class="app-desc">{{{appDescription}}}</div>
-    {{#infoUrl}}<div class="app-desc">More information: <a href="{{{infoUrl}}}">{{{infoUrl}}}</a></div>{{/infoUrl}}
-    {{#infoEmail}}<div class="app-desc">Contact Info: <a href="{{{infoEmail}}}">{{{infoEmail}}}</a></div>{{/infoEmail}}
+    
+   
     {{#version}}<div class="app-desc">Version: {{{version}}}</div>{{/version}}
-    <div class="license-info">{{{licenseInfo}}}</div>
-    <div class="license-url">{{{licenseUrl}}}</div>
-  <h2>Access</h2>
-  {{access}}
+   
+ 
 
   <h2><a name="__Methods">Methods</a></h2>
-  [ Jump to <a href="#__Models">Models</a> ]
+ 
 
   {{! for the tables of content, I cheat and don't use CSS styles.... }}
   <h2>Table of Contents </h2>
@@ -43,7 +41,7 @@
   {{#operation}}
   <div class="method"><a name="{{nickname}}"/>
     <div class="method-path">
-    <a class="up" href="#__Methods">Up</a>
+    <a class="up up-custom" href="#__Methods">Up</a>
     <pre class="{{httpMethod}}"><code class="huge"><span class="http-method">{{httpMethod}}</span> {{path}}</code></pre></div>
     <div class="method-summary">{{summary}} (<span class="nickname">{{nickname}}</span>)</div>
     {{! notes is operation.description. So why rename it and make it super confusing???? }}
@@ -140,33 +138,6 @@
   {{/apis}}
   {{/apiInfo}}
 
-  <div class="up"><a href="#__Models">Up</a></div>
-  <h2><a name="__Models">Models</a></h2>
-  [ Jump to <a href="#__Methods">Methods</a> ]
-
-  <h2>Table of Contents</h2>
-  <ol>
-  {{#models}}
-  {{#model}}
-    <li><a href="#{{classname}}"><code>{{classname}}</code></a></li>
-  {{/model}}
-  {{/models}}
-  </ol>
-
-  {{#models}}
-  {{#model}}
-  <div class="model">
-    <h3 class="field-label"><a name="{{classname}}">{{classname}}</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class="field-items">
-      {{#vars}}<div class="param">{{name}} {{#isNotRequired}}(optional){{/isNotRequired}}</div><div class="param-desc"><span class="param-type">{{datatype}}</span> {{description}}</div>
-      {{#isEnum}}
-        <div class="param-enum-header">Enum:</div>
-        {{#_enum}}<div class="param-enum">{{this}}</div>{{/_enum}}
-      {{/isEnum}}
-      {{/vars}}
-    </div>  <!-- field-items -->
-  </div>
-  {{/model}}
-  {{/models}}
+  
   </body>
 </html>
