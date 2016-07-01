@@ -43,7 +43,13 @@ public class {{classname}} {
 {{/allParams}}   * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}
    */
   public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException {
-    Object {{localVariablePrefix}}postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+  
+  if({{httpMethod}}.equals("POST") || {{httpMethod}}.equals("PUT")){
+	 Object {{localVariablePrefix}}postBody = body;
+	}else{
+	 Object {{localVariablePrefix}}postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+	}
+   
     {{#allParams}}{{#required}}
      // verify the required parameter '{{paramName}}' is set
      if ({{paramName}} == null) {
@@ -79,8 +85,13 @@ public class {{classname}} {
     final String[] {{localVariablePrefix}}contentTypes = {
       {{#consumes}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
     };
-    /*final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);*/
+  
+	if({{httpMethod}}.equals("POST") || {{httpMethod}}.equals("PUT")){
 	final String {{localVariablePrefix}}contentType = cttype;
+	}else{
+	 final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
+	}
+	
 
     String[] {{localVariablePrefix}}authNames = new String[] { {{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}} };
 
