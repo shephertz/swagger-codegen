@@ -84,8 +84,14 @@ public class {{classname}} {
       {{#consumes}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
     };
   
-	final String {{localVariablePrefix}}contentType ={{#consumes}}cttype{{/consumes}}{{^consumes}}null{{/consumes}};
-	
+	final String {{localVariablePrefix}}contentType;
+  
+  if("{{httpMethod}}".equals("POST") || "{{httpMethod}}".equals("PUT")){
+      {{localVariablePrefix}}contentType =cttype;
+  }else{
+       {{localVariablePrefix}}contentType ={{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
+  }
+	//final String {{localVariablePrefix}}contentType ={{#consumes}}cttype{{/consumes}}{{^consumes}}null{{/consumes}};
 	// final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
 	
 	
