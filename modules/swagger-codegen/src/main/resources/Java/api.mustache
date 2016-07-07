@@ -44,8 +44,8 @@ public class {{classname}} {
    */
   public {{#returnType}}{{{returnType}}} {{/returnType}}{{^returnType}}void {{/returnType}}{{operationId}}({{#allParams}}{{{dataType}}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) throws ApiException {
   
-  // Object {{localVariablePrefix}}postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
-	 Object {{localVariablePrefix}}postBody = {{#bodyParam}}body{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+   Object {{localVariablePrefix}}postBody = {{#bodyParam}}{{paramName}}{{/bodyParam}}{{^bodyParam}}null{{/bodyParam}};
+	
 	
    
     {{#allParams}}{{#required}}
@@ -84,19 +84,9 @@ public class {{classname}} {
       {{#consumes}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/consumes}}
     };
   
-	final String {{localVariablePrefix}}contentType;
-  
-  if("{{httpMethod}}".equals("POST") || "{{httpMethod}}".equals("PUT")){
-      {{localVariablePrefix}}contentType =cttype;
-  }else{
-       {{localVariablePrefix}}contentType ={{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
-  }
-	//final String {{localVariablePrefix}}contentType ={{#consumes}}cttype{{/consumes}}{{^consumes}}null{{/consumes}};
-	// final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
+	final String {{localVariablePrefix}}contentType = {{localVariablePrefix}}apiClient.selectHeaderContentType({{localVariablePrefix}}contentTypes);
 	
-	
-
-    String[] {{localVariablePrefix}}authNames = new String[] { {{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}} };
+	  String[] {{localVariablePrefix}}authNames = new String[] { {{#authMethods}}"{{name}}"{{#hasMore}}, {{/hasMore}}{{/authMethods}} };
 
     {{#returnType}}
     GenericType<{{{returnType}}}> {{localVariablePrefix}}returnType = new GenericType<{{{returnType}}}>() {};
