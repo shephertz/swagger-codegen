@@ -4,50 +4,63 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>{{{appName}}}</title>
+	 <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+	  
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+	 <script>
+       $(function(){
+       $('ul li a').on('click', function(){
+           $(this).parent().addClass('current').siblings().removeClass('current');
+         });
+       });
+        </script>
     <style type="text/css">
       {{>style.css}}
     </style>
+	
   </head>
   <body>
-  <h1>{{{appName}}}</h1>
-    <div class="app-desc">{{{appDescription}}}</div>
-    
+  <div class="projName" >{{{appName}}}</div>
+   <div class="contWrapper"> 
+     <div class="cont">
+              
+	 <div class="contLeft">
+	 <form  action="#" class="filterform" >
+    <input type="text" placeholder="Search methods" class="filterinput" onkeyup="listFilter()">
    
-    {{#version}}<div class="app-desc">Version: {{{version}}}</div>{{/version}}
+  </form>
+   {{#apiInfo}}
+   <ul id="list">
    
- 
-
-  <h2><a name="__Methods">Methods</a></h2>
- 
-
-  {{! for the tables of content, I cheat and don't use CSS styles.... }}
-  <h2>Table of Contents </h2>
-  <div class="method-summary">{{access}}</div>
-  {{#apiInfo}}
-  <ol>
-  {{#apis}}
+	{{#apis}}
   {{#operations}}
   {{#operation}}
-  <li><a href="#{{nickname}}"><code><span class="http-method">{{httpMethod}}</span> {{path}}</code></a></li>
+ <li><a href="#{{nickname}}"><code><span class="http-method">{{httpMethod}} &nbsp;</span> {{nickname}}</code></a></li>
   {{/operation}}
   {{/operations}}
   {{/apis}}
-  </ol>
-  {{/apiInfo}}
-
-  {{#apiInfo}}
+	</ul>
+	{{/apiInfo}}
+	</div>
+	  <div class="contRight">
+	   <h1>{{{appName}}}</h1>
+	   <div class="app-desc">{{{appDescription}}}</div>
+	   {{#version}}<div class="app-desc">Version: {{{version}}}</div>{{/version}}
+	   
+ {{#apiInfo}}
   {{#apis}}
   {{#operations}}
   {{#operation}}
-  <div class="method"><a name="{{nickname}}"/>
-    <div class="method-path">
-    <a class="up up-custom" href="#__Methods">Up</a>
-    <pre class="{{httpMethod}}"><code class="huge"><span class="http-method">{{httpMethod}}</span> {{path}}</code></pre></div>
-    <div class="method-summary">{{summary}} (<span class="nickname">{{nickname}}</span>)</div>
-    {{! notes is operation.description. So why rename it and make it super confusing???? }}
-    <div class="method-notes">{{notes}}</div>
-
-    {{#hasPathParams}}
+	     <div class="method"><a name="{{nickname}}"/>
+	    <div class="method-path">
+		 <a class="up" href="#top"><span class="arrow-up"></span></a>
+		
+		  <pre class="{{httpMethod}}"><code class="huge"><span class="http-method">{{httpMethod}}</span> {{path}}</code></pre>
+		  </div>
+		 <div class="method-summary">{{summary}} (<span class="nickname">{{nickname}}</span>)</div>
+		    <div class="method-notes">{{notes}}</div>
+			 {{#hasPathParams}}
     <h3 class="field-label">Path parameters</h3>
     <div class="field-items">
       {{#pathParams}}{{>pathParam}}{{/pathParams}}
@@ -132,12 +145,68 @@
     {{/examples}}
     {{/responses}}
   </div> <!-- method -->
-  <hr/>
+    <hr/>
   {{/operation}}
   {{/operations}}
   {{/apis}}
   {{/apiInfo}}
+  
+	  </div>
+	</div>
+   </div>
+  
+   <script>
+  jQuery.expr[':'].icontains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase()
+      .indexOf(m[3].toUpperCase()) >= 0;
+};
+   function listFilter() {
 
+  
+    var filter = $(".filterinput").val();
+	console.log(filter)
+    if (filter) {
+      $("#list").find("a:not(:icontains(" + filter + "))").parent().slideUp();
+      $("#list").find("a:icontains(" + filter + ")").parent().slideDown();
+    } else {
+      $("#list").find("li").slideDown();
+    }
+ 
+ 
+}
+          $(function() {
+		  $("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  return false;
+});
+		  
+		  
+            $('a[href*=#]:not([href=#])').click(function() {
+              if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+          && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                if (target.length) {
+                  $('html,body').animate({
+                    scrollTop: target.offset().top - 85 //offsets for fixed header
+                  }, 500);
+                  return false;
+                }
+              }
+            });
+            //Executed on page load with URL containing an anchor tag.
+            if($(location.href.split("#")[1])) {
+                var target = $('#'+location.href.split("#")[1]);
+                if (target.length) {
+                  $('html,body').animate({
+                    scrollTop: target.offset().top - 85 //offset height of header here too.
+                  }, 500);
+                  return false;
+                }
+              }
+          });
+          </script>
+ 
   
   </body>
 </html>
