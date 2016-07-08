@@ -164,7 +164,7 @@
 
   
     var filter = $(".filterinput").val();
-	console.log(filter)
+	
     if (filter) {
       $("#list").find("a:not(:icontains(" + filter + "))").parent().slideUp();
       $("#list").find("a:icontains(" + filter + ")").parent().slideDown();
